@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Carrusel de Imágenes</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #222;
+    }
+
+    .carrusel {
+      position: relative;
+      width: 600px;
+      height: 400px;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 0 10px black;
+    }
+
+    .imagenes {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .imagenes img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Botones de navegación */
+    .boton {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      border-radius: 50%;
+    }
+
+    .izquierda {
+      left: 10px;
+    }
+
+    .derecha {
+      right: 10px;
+    }
+
+    .boton:hover {
+      background-color: rgba(0,0,0,0.8);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Carrusel de imágenes -->
+  <div class="carrusel">
+    <div class="imagenes" id="contenedorImagenes">
+      <!-- Agrega tus imágenes aquí -->
+      <img src="https://picsum.photos/id/1015/600/400" alt="Imagen 1">
+      <img src="https://picsum.photos/id/1016/600/400" alt="Imagen 2">
+      <img src="https://picsum.photos/id/1018/600/400" alt="Imagen 3">
+    </div>
+
+    <!-- Botones de navegación manual -->
+    <button class="boton izquierda" onclick="cambiarImagen(-1)">❮</button>
+    <button class="boton derecha" onclick="cambiarImagen(1)">❯</button>
+  </div>
+
+  <script>
+    // Variables del carrusel
+    let indice = 0;
+    const imagenes = document.getElementById("contenedorImagenes");
+    const total = imagenes.children.length;
+
+    // Función para cambiar imagen manualmente
+    function cambiarImagen(direccion) {
+      indice = (indice + direccion + total) % total;
+      actualizarCarrusel();
+    }
+
+    // Función que actualiza la posición del carrusel
+    function actualizarCarrusel() {
+      imagenes.style.transform = `translateX(-${indice * 100}%)`;
+    }
+
+    // Carrusel automático: cambia cada 4 segundos
+    setInterval(() => {
+      cambiarImagen(1);
+    }, 4000);
+  </script>
+
+</body>
+</html>

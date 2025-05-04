@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Juego de Preguntas y Respuestas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .contenedor {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .respuesta {
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .respuesta:hover {
+      background-color: #0056b3;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="contenedor">
+    <h2>Juego de Preguntas y Respuestas</h2>
+
+    <!-- Pregunta actual -->
+    <p id="pregunta">¿Cuál es la capital de Francia?</p>
+
+    <!-- Respuestas -->
+    <button class="respuesta" onclick="verificarRespuesta('a')">A) Berlín</button>
+    <button class="respuesta" onclick="verificarRespuesta('b')">B) Madrid</button>
+    <button class="respuesta" onclick="verificarRespuesta('c')">C) París</button>
+
+    <!-- Resultado final -->
+    <div id="resultado" class="resultado"></div>
+  </div>
+
+  <script>
+    // Preguntas y respuestas correctas
+    const preguntas = [
+      { 
+        pregunta: "¿Cuál es la capital de Francia?", 
+        respuestas: {a: "Berlín", b: "Madrid", c: "París"}, 
+        correcta: "c" 
+      },
+      { 
+        pregunta: "¿Cuál es la fórmula química del agua?", 
+        respuestas: {a: "H2O", b: "CO2", c: "O2"}, 
+        correcta: "a" 
+      },
+      { 
+        pregunta: "¿Quién pintó la Mona Lisa?", 
+        respuestas: {a: "Van Gogh", b: "Da Vinci", c: "Picasso"}, 
+        correcta: "b" 
+      }
+    ];
+
+    let indicePregunta = 0;
+    let puntos = 0;
+
+    // Función para verificar la respuesta
+    function verificarRespuesta(respuesta) {
+      const preguntaActual = preguntas[indicePregunta];
+      if (respuesta === preguntaActual.correcta) {
+        puntos++;
+      }
+
+      // Mostrar el resultado de esta pregunta
+      const resultado = document.getElementById("resultado");
+      resultado.textContent = respuesta === preguntaActual.correcta ? "¡Respuesta correcta!" : "¡Respuesta incorrecta!";
+      
+      // Esperar 2 segundos antes de cargar la siguiente pregunta
+      setTimeout(() => {
+        indicePregunta++;
+        if (indicePregunta < preguntas.length) {
+          mostrarPregunta();
+        } else {
+          mostrarResultadoFinal();
+        }
+      }, 2000);
+    }
+
+    // Función para mostrar la siguiente pregunta
+    function mostrarPregunta() {
+      const preguntaActual = preguntas[indicePregunta];
+      document.getElementById("pregunta").textContent = preguntaActual.pregunta;
+      const botones = document.querySelectorAll(".respuesta");
+      botones[0].textContent = `A) ${preguntaActual.respuestas.a}`;
+      botones[1].textContent = `B) ${preguntaActual.respuestas.b}`;
+      botones[2].textContent = `C) ${preguntaActual.respuestas.c}`;
+      botones[2].textContent = `C) ${preguntaActual.respuestas.c}`;
+      document.getElementById("resultado").textContent = '';
+    }
+
+    // Función para mostrar el resultado final
+    function mostrarResultadoFinal() {
+      const resultado = document.getElementById("resultado");
+      resultado.textContent = `Has obtenido ${puntos} de ${preguntas.length} puntos.`;
+    }
+
+    // Inicializar el juego
+    mostrarPregunta();
+  </script>
+
+</body>
+</html>  

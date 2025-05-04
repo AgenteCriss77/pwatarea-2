@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Validación de Formulario</title>
+  <style>
+    body {
+      background-color: #eef2f3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Estilos del formulario */
+    form {
+      background-color: #fff;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      width: 300px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Formulario con validación -->
+  <form onsubmit="return validarFormulario()">
+    <h3>Registro</h3>
+    
+    <input type="text" id="nombre" placeholder="Nombre">
+    <input type="email" id="correo" placeholder="Correo electrónico">
+    <input type="password" id="contrasena" placeholder="Contraseña">
+
+    <!-- Lugar donde se mostrará el error -->
+    <div id="mensajeError" class="error"></div>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    // Función que valida los campos del formulario
+    function validarFormulario() {
+      const nombre = document.getElementById("nombre").value.trim();
+      const correo = document.getElementById("correo").value.trim();
+      const contrasena = document.getElementById("contrasena").value.trim();
+      const mensajeError = document.getElementById("mensajeError");
+
+      // Limpiar mensajes anteriores
+      mensajeError.textContent = "";
+
+      // Validación de campos vacíos
+      if (nombre === "" || correo === "" || contrasena === "") {
+        mensajeError.textContent = "Por favor, complete todos los campos.";
+        return false; // Prevenir envío del formulario
+      }
+
+      // Validación de correo con expresión regular
+      const correoRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!correoRegex.test(correo)) {
+        mensajeError.textContent = "Ingrese un correo electrónico válido.";
+        return false;
+      }
+
+      // Si todo está correcto, se permite enviar
+      alert("Formulario enviado correctamente.");
+      return true;
+    }
+  </script>
+
+</body>
+</html>

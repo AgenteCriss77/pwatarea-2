@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cambio de Imagen al Pasar el Ratón</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* Estilo de la imagen con transición suave */
+    #imagen {
+      width: 400px;
+      height: 300px;
+      border-radius: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      object-fit: cover;
+      cursor: pointer; 
+    }
+
+    /* Efecto visual adicional al pasar el ratón */
+    #imagen:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Imagen con eventos de mouse -->
+  <img id="imagen"
+       src="Imagenes2/imagen1.jpeg"
+       onmouseover="cambiarImagen()"
+       onmouseout="restaurarImagen()"
+       alt="Imagen interactiva">
+
+  <script>
+    // Guardamos la URL original de la imagen
+    const imagen = document.getElementById("imagen");
+    const imagenOriginal = imagen.src;
+
+    // Función que cambia la imagen al pasar el ratón
+    function cambiarImagen() {
+      imagen.src = "Imagenes2/imagen2.jpeg";
+    }
+
+    // Función que restaura la imagen original cuando se retira el ratón
+    function restaurarImagen() {
+      imagen.src = imagenOriginal;
+    }
+  </script>
+
+</body>
+</html>

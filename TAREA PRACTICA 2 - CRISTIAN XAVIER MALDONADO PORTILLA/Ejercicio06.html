@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Tareas</title>
+  <style>
+    body {
+      background-color: #f0f2f5;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      padding: 50px;
+    }
+
+    .contenedor {
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 10px;
+      width: 400px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    input[type="text"] {
+      width: 75%;
+      padding: 10px;
+      margin-right: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      background-color: #f8f9fa;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .eliminar {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 5px 8px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .eliminar:hover {
+      background-color: darkred;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="contenedor">
+    <h2>Lista de Tareas</h2>
+
+    <!-- Campo para agregar nuevas tareas -->
+    <input type="text" id="nuevaTarea" placeholder="Escribe una nueva tarea">
+    <button onclick="agregarTarea()">Agregar</button>
+
+    <!-- Lista donde se mostrarán las tareas -->
+    <ul id="listaTareas"></ul>
+  </div>
+
+  <script>
+    // Función que agrega una tarea a la lista
+    function agregarTarea() {
+      const input = document.getElementById("nuevaTarea");
+      const texto = input.value.trim();
+
+      // Si el campo está vacío, no se agrega nada
+      if (texto === "") return;
+
+      const ul = document.getElementById("listaTareas");
+
+      // Crear un nuevo elemento de lista <li>
+      const li = document.createElement("li");
+      li.textContent = texto;
+
+      // Crear botón para eliminar la tarea
+      const botonEliminar = document.createElement("button");
+      botonEliminar.textContent = "Eliminar";
+      botonEliminar.className = "eliminar";
+
+      // Evento para eliminar la tarea al hacer clic
+      botonEliminar.onclick = function () {
+        ul.removeChild(li);
+      };
+
+      // Agregar botón al <li> y luego <li> a la lista
+      li.appendChild(botonEliminar);
+      ul.appendChild(li);
+
+      // Limpiar el campo de texto
+      input.value = "";
+    }
+  </script>
+
+</body>
+</html>

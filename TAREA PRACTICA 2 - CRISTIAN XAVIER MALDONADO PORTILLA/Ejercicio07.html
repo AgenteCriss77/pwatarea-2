@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Menú Desplegable</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Contenedor del menú */
+    .navbar {
+      background-color: #333;
+      overflow: hidden;
+    }
+
+    /* Estilo de los enlaces principales */
+    .navbar a {
+      float: left;
+      display: block;
+      color: white;
+      padding: 14px 20px;
+      text-decoration: none;
+    }
+
+    .navbar a:hover {
+      background-color: #575757;
+    }
+
+    /* Contenedor del submenú */
+    .submenu {
+      display: none;
+      position: absolute;
+      background-color: #444;
+      min-width: 160px;
+      z-index: 1;
+    }
+
+    /* Enlaces del submenú */
+    .submenu a {
+      color: white;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .submenu a:hover {
+      background-color: #666;
+    }
+
+    /* Envolver los elementos con submenú */
+    .menu-con-submenu {
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de navegación -->
+  <div class="navbar">
+    <a href="#">Inicio</a>
+
+    <!-- Opción con submenú -->
+    <div class="menu-con-submenu">
+      <a href="#" onclick="mostrarSubmenu(event)">Servicios ▼</a>
+
+      <!-- Submenú oculto por defecto -->
+      <div class="submenu" id="submenuServicios">
+        <a href="#">Diseño Web</a>
+        <a href="#">Desarrollo</a>
+        <a href="#">Soporte</a>
+      </div>
+    </div>
+
+    <a href="#">Contacto</a>
+  </div>
+
+  <script>
+    // Función que muestra u oculta el submenú
+    function mostrarSubmenu(event) {
+      event.preventDefault(); // Prevenir que se recargue la página
+      const submenu = document.getElementById("submenuServicios");
+
+      // Alternar entre mostrar y ocultar
+      if (submenu.style.display === "block") {
+        submenu.style.display = "none";
+      } else {
+        submenu.style.display = "block";
+      }
+    }
+
+    // Ocultar el submenú si se hace clic fuera de él
+    window.onclick = function(event) {
+      if (!event.target.matches('.menu-con-submenu > a')) {
+        const submenu = document.getElementById("submenuServicios");
+        if (submenu.style.display === "block") {
+          submenu.style.display = "none";
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>

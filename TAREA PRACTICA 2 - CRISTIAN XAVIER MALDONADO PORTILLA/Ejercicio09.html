@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Temporizador de Cuenta Regresiva</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    .temporizador {
+      font-size: 3em;
+      background-color: #222;
+      padding: 20px 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #444;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Título -->
+  <h1>Cuenta Regresiva</h1>
+
+  <!-- Contenedor donde se muestra el tiempo -->
+  <div class="temporizador" id="temporizador">00:00:10</div>
+
+  <script>
+    // Tiempo inicial en segundos (10 segundos como ejemplo)
+    let tiempoRestante = 10;
+
+    // Referencia al div donde se muestra el temporizador
+    const pantalla = document.getElementById("temporizador");
+
+    // Función para formatear el tiempo (minutos:segundos)
+    function formatearTiempo(segundos) {
+      const min = String(Math.floor(segundos / 60)).padStart(2, "0");
+      const seg = String(segundos % 60).padStart(2, "0");
+      return `${min}:${seg}`;
+    }
+
+    // Mostrar tiempo inicial
+    pantalla.textContent = formatearTiempo(tiempoRestante);
+
+    // Intervalo que se ejecuta cada segundo
+    const cuentaAtras = setInterval(() => {
+      tiempoRestante--;
+
+      // Actualizar pantalla
+      pantalla.textContent = formatearTiempo(tiempoRestante);
+
+      // Cuando llega a cero, detener temporizador
+      if (tiempoRestante <= 0) {
+        clearInterval(cuentaAtras);
+        pantalla.textContent = "¡Tiempo terminado!";
+      }
+    }, 1000);
+  </script>
+
+</body>
+</html>

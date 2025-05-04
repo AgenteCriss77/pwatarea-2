@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reloj Analógico</title>
+  <style>
+    body {
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* Contenedor del reloj */
+    .reloj {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      border: 8px solid #333;
+      border-radius: 50%;
+      background-color: white;
+    }
+
+    /* Punto central del reloj */
+    .centro {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #333;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+
+    /* Estilo común para todas las manecillas */
+    .manecilla {
+      position: absolute;
+      width: 50%;
+      height: 4px;
+      background-color: #333;
+      top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: transform 0.5s ease-in-out;
+    }
+
+    /* Colores específicos para cada manecilla */
+    .hora {
+      height: 6px;
+      background-color: #000;
+    }
+
+    .minuto {
+      height: 4px;
+      background-color: #007bff;
+    }
+
+    .segundo {
+      height: 2px;
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Estructura del reloj -->
+  <div class="reloj">
+    <div class="centro"></div>
+    <div id="hora" class="manecilla hora"></div>
+    <div id="minuto" class="manecilla minuto"></div>
+    <div id="segundo" class="manecilla segundo"></div>
+  </div>
+
+  <script>
+    // Obtener referencias a las manecillas
+    const hora = document.getElementById("hora");
+    const minuto = document.getElementById("minuto");
+    const segundo = document.getElementById("segundo");
+
+    // Función que actualiza la posición de las manecillas
+    function actualizarReloj() {
+      const ahora = new Date();
+
+      const segundos = ahora.getSeconds();
+      const minutos = ahora.getMinutes();
+      const horas = ahora.getHours();
+
+      // Calcular ángulos
+      const anguloSegundos = segundos * 6; // 360° / 60 = 6° por segundo
+      const anguloMinutos = minutos * 6 + segundos * 0.1; // 6° por minuto + avance por segundos
+      const anguloHoras = horas * 30 + minutos * 0.5; // 360° / 12 = 30° por hora + avance por minutos
+
+      // Rotar manecillas
+      segundo.style.transform = `rotate(${anguloSegundos}deg)`;
+      minuto.style.transform = `rotate(${anguloMinutos}deg)`;
+      hora.style.transform = `rotate(${anguloHoras}deg)`;
+    }
+
+    // Llamar a la función cada segundo
+    setInterval(actualizarReloj, 1000);
+
+    // Llamar una vez para mostrar el reloj de inmediato
+    actualizarReloj();
+  </script>
+
+</body>
+</html>
